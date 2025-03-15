@@ -26,4 +26,8 @@ val ThirtyDaysOfWellnessTypography = Typography(
         fontFamily = Poppins,
         fontWeight = FontWeight.Normal
     ),
+    titleSmall = TextStyle(
+        fontFamily = Poppins,
+        fontWeight = FontWeight.Normal
+    )
 )

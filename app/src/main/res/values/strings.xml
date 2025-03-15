@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">ThirtyDaysOfWellness</string>
 
+    <string name="column_view_switch_text">Column View</string>
+    <string name="grid_view_switch_text">Grid View</string>
+
     <string name="tip_1_title">Tip 1 title</string>
     <string name="tip_1_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis ante, tincidunt eu ultrices nec, efficitur id mi. In rutrum mollis sem. Aliquam blandit massa sit amet dolor placerat congue.</string>
 </resources>

@@ -10,6 +10,91 @@ object TipsRepository {
             descriptionRes = R.string.tip_1_description,
             titleRes = R.string.tip_1_title,
             imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
+        ),
+        Tip(
+            descriptionRes = R.string.tip_1_description,
+            titleRes = R.string.tip_1_title,
+            imageRes = R.drawable.tip_1_image
         )
     )
 }

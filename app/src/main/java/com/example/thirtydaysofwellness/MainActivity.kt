@@ -4,30 +4,30 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
+import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.thirtydaysofwellness.data.TipsRepository
-import com.example.thirtydaysofwellness.model.Tip
 import com.example.thirtydaysofwellness.ui.theme.ThirtyDaysOfWellnessTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,7 +36,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ThirtyDaysOfWellnessTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = {
+                        ThirtyDaysOfWellnessTopAppBar()
+                    }
+                ) { innerPadding ->
                     ThirtyDaysOfWellnessApp(
                         modifier = Modifier
                             .padding(innerPadding)
@@ -48,82 +53,113 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ThirtyDaysOfWellnessApp(modifier: Modifier = Modifier) {
-
-}
-
-@Composable
-fun Tip(
+fun SwitchWithText(
     modifier: Modifier = Modifier,
-    tip: Tip
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    @StringRes textRes: Int
 ) {
-    Card(
+    Row(
         modifier = modifier
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+        Row(
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = stringResource(tip.titleRes),
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier
-                    .padding(16.dp)
+                text = stringResource(textRes)
             )
-            Box(
+            Spacer(
                 modifier = Modifier
-                    .height(300.dp)
-            ) {
-                Image(
-                    painter = painterResource(tip.imageRes),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop
-                )
-            }
-            Text(
-                text = stringResource(tip.descriptionRes),
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .padding(8.dp),
-                textAlign = TextAlign.Justify
+                    .width(
+                        dimensionResource(
+                            R.dimen.padding_medium
+                        )
+                    )
+            )
+            Switch(
+                checked = checked,
+                onCheckedChange = onCheckedChange
             )
         }
     }
 }
 
 @Composable
-fun TipList(
-    modifier: Modifier = Modifier,
-    tips: List<Tip>
-) {
-    LazyColumn(
+fun ThirtyDaysOfWellnessApp(modifier: Modifier = Modifier) {
+    var columnViewOn by remember {
+        mutableStateOf(
+            true
+        )
+    }
+
+    var viewSwitchTextRes by remember {
+        mutableStateOf(R.string.column_view_switch_text)
+    }
+
+    Column(
         modifier = modifier
+            .fillMaxSize()
     ) {
-        items(tips) { tip ->
-            Tip(
-                tip = tip
+        ThirtyDaysOfWellnessSettings(
+            columnViewOn = columnViewOn,
+            onViewChange = { checked ->
+                viewSwitchTextRes = if(checked)
+                    R.string.column_view_switch_text
+                else
+                    R.string.grid_view_switch_text
+
+                columnViewOn = !columnViewOn
+            },
+            viewSwitchTextRes = viewSwitchTextRes
+        )
+
+        if(columnViewOn) {
+            TipList(
+                tips = TipsRepository.tips,
+            )
+        } else {
+            TipGrid(
+                tips = TipsRepository.tips
             )
         }
     }
 }
 
-@Preview
 @Composable
-fun TipPreview(modifier: Modifier = Modifier) {
-    ThirtyDaysOfWellnessTheme {
-        Tip(
-            tip = TipsRepository.tips[0]
+fun ThirtyDaysOfWellnessSettings(
+    modifier: Modifier = Modifier,
+    columnViewOn: Boolean = true,
+    onViewChange: (Boolean) -> Unit,
+    @StringRes viewSwitchTextRes: Int
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(
+                dimensionResource(
+                    R.dimen.padding_medium
+                )
+            ),
+        horizontalArrangement = Arrangement.End,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        SwitchWithText(
+            checked = columnViewOn,
+            onCheckedChange = onViewChange,
+            textRes = viewSwitchTextRes
         )
     }
 }
 
-@Preview
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TipListPreview(
-    modifier: Modifier = Modifier
-) {
-    ThirtyDaysOfWellnessTheme {
-        TipList(
-            tips = TipsRepository.tips
-        )
-    }
+fun ThirtyDaysOfWellnessTopAppBar(modifier: Modifier = Modifier) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(
+                text = stringResource(R.string.app_name)
+            )
+        },
+        modifier = modifier
+    )
 }
